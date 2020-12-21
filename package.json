@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/thiled/vue-scooter-cli#readme",
   "bin": {
-    "vue-scooter-cli": "index.js"
+    "vue-scooter-cli": "./bin/index.js"
   },
   "engine": {
     "node": ">=0.10"
