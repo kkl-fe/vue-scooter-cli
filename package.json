@@ -1,0 +1,22 @@
+{
+  "name": "vue-scooter-cli",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiled/vue-scooter-cli.git"
+  },
+  "author": "thiled",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thiled/vue-scooter-cli/issues"
+  },
+  "homepage": "https://github.com/thiled/vue-scooter-cli#readme",
+  "bin": {
+    "vue-scooter-cli": "index.js"
+  }
+}
