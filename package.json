@@ -21,5 +21,10 @@
   },
   "engine": {
     "node": ">=0.10"
+  },
+  "dependencies": {
+    "filewalker": "^0.1.3",
+    "mkdirp": "^1.0.4",
+    "ncp": "^2.0.0"
   }
 }
