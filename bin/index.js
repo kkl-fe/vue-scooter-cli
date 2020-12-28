@@ -18,7 +18,6 @@ if (opts.build) {
   buildTool.run(buildSrc, buildTarget);
 }
 if (opts.dev) {
-  console.log('dev');
   liveDevServer(
     Object.assign(customConfig.devServer, {
       workspace: customConfig.workspace || './src',
