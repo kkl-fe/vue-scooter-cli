@@ -6,10 +6,12 @@ const liveDevServer = require('live-dev-server');
 let opts = getopts(process.argv);
 // 读取项目根目录vue-scooter.config.js配置
 let projectRoot = process.cwd();
-let customConfig = require(path.resolve(
-  projectRoot,
-  './vue-scooter.config.js'
-));
+let customConfig = {};
+try {
+  customConfig = require(path.resolve(projectRoot, './vue-scooter.config.js'));
+} catch (err) {
+  console.warn('[Warning] vue-scooter.config.js not found in project root');
+}
 
 if (opts.build) {
   let buildConfig = customConfig.build;
@@ -19,7 +21,7 @@ if (opts.build) {
 }
 if (opts.dev) {
   liveDevServer(
-    Object.assign(customConfig.devServer, {
+    Object.assign({}, customConfig.devServer, {
       workspace: customConfig.workspace || './src',
       inject: function (event) {
         // ws message event
