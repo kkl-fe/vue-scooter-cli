@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 const path = require('path');
-const buildTool = require('../build-tool');
 const getopts = require('getopts');
-const liveDevServer = require('live-dev-server');
 let opts = getopts(process.argv);
 // 读取项目根目录vue-scooter.config.js配置
 let projectRoot = process.cwd();
@@ -14,12 +12,17 @@ try {
 }
 
 if (opts.build) {
-  let buildConfig = customConfig.build;
+  const buildTool = require('../build-tool');
+
+  let buildConfig = customConfig.build || {};
   let buildSrc = path.resolve(projectRoot, customConfig.workspace || './src');
-  let buildTarget = path.resolve(projectRoot, buildConfig.dist);
+  let buildTarget = path.resolve(projectRoot, buildConfig.dist || './dist');
   buildTool.run(buildSrc, buildTarget);
 }
+
 if (opts.dev) {
+  const liveDevServer = require('live-dev-server');
+
   liveDevServer(
     Object.assign({}, customConfig.devServer, {
       workspace: customConfig.workspace || './src',

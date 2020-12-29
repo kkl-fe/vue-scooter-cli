@@ -1,6 +1,6 @@
 {
   "name": "vue-scooter-cli",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "",
   "scripts": {
     "dev": "node ./bin/index.js --dev"
