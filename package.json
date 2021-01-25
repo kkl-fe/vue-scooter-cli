@@ -29,8 +29,6 @@
     "qoa-extra": "^0.0.2",
     "vue-scooter-template": "0.0.2",
     "filewalker": "^0.1.3",
-    "live-dev-server": "^0.9.1",
-    "mkdirp": "^1.0.4",
-    "ncp": "^2.0.0"
+    "live-dev-server": "^0.9.1"
   }
 }
