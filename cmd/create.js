@@ -9,7 +9,11 @@ module.exports = async (source, cmd) => {
   if(fs.existsSync(path)) {
     toast.error('The current directory already exists in the folder')
   } else {
-    QoaExtra.prompt(options).then(res => {
+    const prompt = []
+    Object.values(options).forEach(item => {
+      prompt.push(item)
+    })
+    QoaExtra.prompt(prompt).then(res => {
       templateHandle(res, source)
     })
   }
