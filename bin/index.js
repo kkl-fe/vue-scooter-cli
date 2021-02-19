@@ -1,14 +1,17 @@
 #!/usr/bin/env node
 const path = require('path');
 const getopts = require('getopts');
+const fs = require('fs');
 let opts = getopts(process.argv);
 // 读取项目根目录vue-scooter.config.js配置
 let projectRoot = process.cwd();
 let customConfig = {};
-try {
-  customConfig = require(path.resolve(projectRoot, './vue-scooter.config.js'));
-} catch (err) {
+console.log(projectRoot)
+let customConfigPath = path.resolve(projectRoot, './vue-scooter.config.js');
+if (!fs.existsSync(customConfigPath)) {
   console.warn('[Warning] vue-scooter.config.js not found in project root');
+} else {
+  customConfig = require(customConfigPath);
 }
 
 if (opts.build) {
