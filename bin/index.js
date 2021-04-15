@@ -14,7 +14,8 @@ if (!fs.existsSync(customConfigPath)) {
 }
 
 if (opts.build) {
-  const buildTool = require('../build-tool');
+  // const buildTool = require('../build-tool');
+  const buildTool = require('../build');
   let buildConfig = customConfig.build || {};
   let buildSrc = path.resolve(projectRoot, customConfig.workspace || './src');
   let buildTarget = path.resolve(projectRoot, buildConfig.dist || './dist');

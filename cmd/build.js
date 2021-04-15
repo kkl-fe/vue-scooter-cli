@@ -1,5 +1,5 @@
 const path = require('path');
-const buildTool = require('../utils/build-tools.js');
+const buildTool = require('../utils/build-tool.js');
 
 let projectRoot = process.cwd();
 let customConfig = {};
