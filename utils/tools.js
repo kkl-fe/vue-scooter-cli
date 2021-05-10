@@ -1,3 +1,4 @@
+const childProcess = require('child_process')
 
 module.exports = {
   removeBlankLines(str) {
@@ -5,9 +6,21 @@ module.exports = {
   },
   libKeyNormalize(item) {
     const matchRes = item.matchAll(/-([a-z]|[A-Z])/g)
-    for(let res of matchRes) {
+    for (let res of matchRes) {
       item = item.replace(res[0], res[1].toLocaleUpperCase())
     }
     return item
+  },
+  checkPackageManager() {
+    let packageManager = []
+    try {
+      childProcess.execSync('npm -v', { stdio: ['ignore'] })
+      packageManager.push('npm')
+    } catch (e) { }
+    try {
+      childProcess.execSync('yarn -v', { stdio: ['ignore'] })
+      packageManager.push('yarn')
+    } catch (e) { }
+    return packageManager
   }
 }

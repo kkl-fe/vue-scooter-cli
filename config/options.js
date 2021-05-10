@@ -8,5 +8,15 @@ module.exports = {
       'vue-router',
       'vuex'
     ],
+  },
+  packageManager: {
+    type: "interactive",
+    query: "Select the package manager you need",
+    handle: "packageManager",
+    symbol: '>',
+    menu: [
+      'npm',
+      'yarn'
+    ]
   }
 }
