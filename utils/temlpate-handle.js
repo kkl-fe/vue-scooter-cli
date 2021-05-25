@@ -7,6 +7,7 @@ const tools = require('./tools')
 const options = require('../config/options')
 const packages = require('../config/packages')
 const engine = simplet()
+const cmd = require('../config/command')
 
 let projectPath = ''
 const library = {
@@ -30,12 +31,12 @@ function install(source, packages, packageManager) {
   let dependencies, devDependencies
   if (packages.dependencies.length) {
     let packageNameStr = packages.dependencies.join(' ')
-    dependencies = childProcessCmd(`${packageManager} install --save ${packageNameStr}`, { cwd: `${process.cwd()}/${source}` })
+    dependencies = childProcessCmd(packageManager.install(packageNameStr, '--save'), { cwd: `${process.cwd()}/${source}` })
   }
 
   if (packages.devDependencies.length) {
     let packageNameStr = packages.devDependencies.join(' ')
-    devDependencies = childProcessCmd(`${packageManager} install --save-dev ${packageNameStr}`, { cwd: `${process.cwd()}/${source}` })
+    devDependencies = childProcessCmd(packageManager.install(packageNameStr, '--save-dev'), { cwd: `${process.cwd()}/${source}` })
   }
   return Promise.all([dependencies, devDependencies])
 }
@@ -53,10 +54,12 @@ function childProcessCmd(commandStr, ops) {
 }
 
 module.exports = async function (answer, source) {
+  let pkgCmd = cmd[answer.packageManager]
   projectPath = `${process.cwd()}/${source}`
   toast.info('update vue-scooter-template latest version...')
-  childProcess.execSync(`${answer.packageManager} install vue-scooter-template`, { cwd: path.join(__dirname, '../'), stdio: ['ignore'] })
-  toast.info('update completely')
+  let version = JSON.parse(childProcess.execSync(pkgCmd.version('vue-scooter-template')).toString())
+  childProcess.execSync(pkgCmd.install(`vue-scooter-template@${version.version || version.data}`), { cwd: path.join(__dirname, '../'), stdio: ['ignore'] })
+  toast.info('update completely...')
   fs.copySync(path.join(__dirname, '../node_modules/vue-scooter-template'), `${projectPath}`)
   let answerRes = {}
   options.library.menu.forEach(item => {
@@ -73,8 +76,8 @@ module.exports = async function (answer, source) {
   outputFile(`${projectPath}/library/page.ejs`, `${projectPath}/src/index.html`, answerRes)
   outputFile(`${projectPath}/library/package.ejs`, `${projectPath}/package.json`, { appName: source })
   toast.info('install packages...')
-  await install(source, packages, answer.packageManager)
-  toast.info('install packages completely')
+  await install(source, packages, pkgCmd)
+  toast.info('install packages completely...')
   fs.remove(projectPath + '/library')
   toast.success(`the ${source} is created`)
 }
