@@ -29,6 +29,6 @@
     "live-dev-server": "^0.12.2",
     "qoa-extra": "^0.0.2",
     "simplet": "^0.2.1",
-    "vue-scooter-template": "0.0.4"
+    "vue-scooter-template": "0.0.6"
   }
 }

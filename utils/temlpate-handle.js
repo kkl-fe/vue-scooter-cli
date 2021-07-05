@@ -74,10 +74,12 @@ module.exports = async function (answer, source) {
 
   outputFile(`${projectPath}/library/index.ejs`, `${projectPath}/src/index.js`, answerRes)
   outputFile(`${projectPath}/library/page.ejs`, `${projectPath}/src/index.html`, answerRes)
+  outputFile(`${projectPath}/library/app.ejs`, `${projectPath}/src/app.vue`, answerRes)
   outputFile(`${projectPath}/library/package.ejs`, `${projectPath}/package.json`, { appName: source })
   toast.info('install packages...')
   await install(source, packages, pkgCmd)
   toast.info('install packages completely...')
   fs.remove(projectPath + '/library')
+  fs.remove(projectPath + '/LICENSE')
   toast.success(`the ${source} is created`)
 }
